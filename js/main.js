@@ -4,38 +4,34 @@
 // Consider making your fetch work with a button
 
 
+$(random).on("click", () => {
 
-
-$(document).on('ready', ()=>{
-
- axios({
-
-      method: 'get',
+    axios({
+      method: "get",
 
       url: `https://rickandmortyapi.com/api/character/`,
+    })
+      .then((res) => {
 
- })
+        res.data.results.forEach((element, i) => {
 
+          var name = element.name;
+          var img = element.image;
 
- .then((res) => {
+          if (i < 5) {
+            $(".container").append(
+              $(`<div class="profile"></div>`).append(
+                `<h1>${name}</h1> <img src="${img}" alt="">`
+              )
+            );
+          }
+        });
+      })
 
-    res.data.results.forEach((element,i) => {
-        var name = element.name;
-        var img = element.image;
-         
-        if(i < 5){
-            $('.container').append(
-      
-                $(`<div class="profile"></div>`).append(
-                    `<h1>${name}</h1> <img src="${img}" alt="">`
-                )
-            )
-        }
-    }) 
- })
+      .catch((err) => {});
+      $("#random").css("display","none");
 
- .catch((err) => {});
-
-})
+  })
 
 
+  
